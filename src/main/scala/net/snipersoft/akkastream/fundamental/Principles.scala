@@ -3,11 +3,11 @@ package net.snipersoft.akkastream.fundamental
 import akka.actor.ActorSystem
 import akka.stream.scaladsl.{Flow, Sink, Source}
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 object Principles extends App {
   implicit val system: ActorSystem = ActorSystem("mySystem")
-
+  implicit val ec: ExecutionContext = system.dispatcher
   //  basics()
   exercise()
 
