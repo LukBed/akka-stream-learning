@@ -1,4 +1,4 @@
-package net.snipersoft.akkastream
+package net.snipersoft.akkastream.fundamental
 
 import akka.Done
 import akka.actor.ActorSystem
@@ -21,7 +21,7 @@ object Materializing extends App {
   //  futureValue()
   //  chooseMaterializedValue()
   //  syntacticSugar()
-//  lastElementExercise()
+  //  lastElementExercise()
   countWordsExercise()
 
   def futureValue() = {
@@ -63,6 +63,7 @@ object Materializing extends App {
 
   def countWordsExercise(): Unit = {
     def count(s: String): Int = s.split(' ').length
+
     val wordsSource = Source(List("Akka is awesome", "I love streams", "Materialized values are the best", "Hello my friend"))
 
     wordsSource.map(count).runWith(Sink.reduce[Int](_ + _)).onComplete(println)

@@ -1,4 +1,4 @@
-package net.snipersoft.akkastream
+package net.snipersoft.akkastream.fundamental
 
 import akka.actor.{Actor, ActorSystem, Props}
 import akka.stream.scaladsl.{Flow, Sink, Source}
@@ -61,9 +61,15 @@ object OperatorFusion extends App {
 
   def orderingGuarantees(): Unit = {
     Source(1 to 3)
-      .map(el => { println(s"Flow A: $el"); el })
-      .map(el => { println(s"Flow B: $el"); el })
-      .map(el => { println(s"Flow C: $el"); el })
+      .map(el => {
+        println(s"Flow A: $el"); el
+      })
+      .map(el => {
+        println(s"Flow B: $el"); el
+      })
+      .map(el => {
+        println(s"Flow C: $el"); el
+      })
       .runWith(Sink.ignore)
 
     //every element are full processed before new element is starting to process => order is guaranteed
@@ -71,9 +77,15 @@ object OperatorFusion extends App {
 
   def orderingGuaranteesAsync(): Unit = {
     Source(1 to 3)
-      .map(el => { println(s"Flow A: $el"); el }).async
-      .map(el => { println(s"Flow B: $el"); el }).async
-      .map(el => { println(s"Flow C: $el"); el }).async
+      .map(el => {
+        println(s"Flow A: $el"); el
+      }).async
+      .map(el => {
+        println(s"Flow B: $el"); el
+      }).async
+      .map(el => {
+        println(s"Flow C: $el"); el
+      }).async
       .runWith(Sink.ignore)
 
     //not strong guarantees, but relative order of elements inside every component is guaranteed

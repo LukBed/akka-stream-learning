@@ -1,4 +1,4 @@
-package net.snipersoft.akkastream
+package net.snipersoft.akkastream.fundamental
 
 import akka.actor.ActorSystem
 import akka.stream.OverflowStrategy
@@ -14,17 +14,22 @@ object Backpressure extends App {
 
 
   val fastSource = Source(1 to 1000)
-  val simpleFlow = Flow[Int].map(el => { println(s"Incoming $el"); el+1 })
-  val slowSink = Sink.foreach[Int](el => { Thread.sleep(1000); println(s"Sink $el") })
+  val simpleFlow = Flow[Int].map(el => {
+    println(s"Incoming $el"); el + 1
+  })
+  val slowSink = Sink.foreach[Int](el => {
+    Thread.sleep(1000); println(s"Sink $el")
+  })
 
 
-//  noBackpressure()
-//  backpressureExample()
-//  visibleBackpressure()
+  //  noBackpressure()
+  //  backpressureExample()
+  //  visibleBackpressure()
   overflowStrategies()
-//  throttling()
+  //  throttling()
 
   def noBackpressure(): Unit = fastSource.to(slowSink).run() //not backpressure - one actor instance ; 1 el/sec
+
   def backpressureExample(): Unit = fastSource.async.to(slowSink).run() //the same result for user, but it is a backpressure
 
   /*

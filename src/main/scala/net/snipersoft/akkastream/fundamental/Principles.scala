@@ -1,9 +1,8 @@
-package net.snipersoft.akkastream
+package net.snipersoft.akkastream.fundamental
 
 import akka.actor.ActorSystem
 import akka.stream.scaladsl.{Flow, Sink, Source}
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 object Principles extends App {
