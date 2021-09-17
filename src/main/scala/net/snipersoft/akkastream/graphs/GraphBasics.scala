@@ -28,7 +28,7 @@ object GraphBasics extends App {
       GraphDSL.create() { implicit builder: GraphDSL.Builder[NotUsed] => //mutable builder
         import GraphDSL.Implicits._
         val broadcast = builder.add(Broadcast[Int](2)) //fan-out operator: 1 input, 2 outputs
-        val zip = builder.add(Zip[Int, Int]) //fan-in: 1 input, 2 outputs
+        val zip = builder.add(Zip[Int, Int]) //fan-in: 2 inputs, 1 output
 
         input ~> broadcast //input feeds into broadcast, it mutates builder
         broadcast.out(0) ~> incrementer ~> zip.in0
